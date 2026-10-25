@@ -2,13 +2,13 @@
 
 **A physics-driven cooperative crossing game for 2–4 players.**
 
-![Two characters connected by a physical chain beside moving traffic](docs/media/chained-gameplay.jpg)
+![Two characters connected by a physical chain beside moving traffic](docs/media/chained-gameplay.png)
 
-One teammate moves. Everyone feels it. Crossy Chains turns obstacle crossing into a coordination problem: a physical chain connects the team, catches against obstacles, and carries the consequences of each player's movement.
+Crossy Chains turns obstacle crossing into a coordination problem: a physical chain connects the team, catches against obstacles, and carries the consequences of each player's movement.
 
 **TypeScript · Three.js · Rapier · Colyseus · Vite · Blender**
 
-[Development story](docs/DEVELOPMENT.md) · [Architecture](docs/ARCHITECTURE.md) · [Local setup](docs/SETUP.md) · [Assets & attribution](docs/ASSETS.md)
+[Architecture](docs/ARCHITECTURE.md) · [Local setup](docs/SETUP.md) · [Assets & attribution](docs/ASSETS.md)
 
 ## The game
 
@@ -21,19 +21,13 @@ Move freely through an endless world of traffic, flowing rivers and railway cros
 - **Shared consequences:** vehicle impacts and failed water crossings end the run; generated multiplayer restarts require the team's agreement.
 - **Custom characters:** separate walking and aquatic clips, movement-driven playback and visual attachments independent of collision bodies.
 
-## In motion
-
-![Actual local gameplay with the chained team and live traffic](docs/media/chained-movement.gif)
-
-Short capture of live road traffic beside the chained team. See [media notes](docs/media/README.md) for capture context and limitations.
-
 ## Gameplay gallery
 
 | Team setup | Four-player chain |
 | --- | --- |
-| ![Character selection in the actual game menu](docs/media/main-menu.jpg) | ![Four connected characters in a live local multiplayer room](docs/media/four-player.jpg) |
+| ![Character selection in the actual game menu](docs/media/main-menu.png) | ![Four connected characters in a live local multiplayer room](docs/media/four-player.png) |
 | **River crossing** | **Railway crossing** |
-| ![The river course with directional water](docs/media/river.jpg) | ![The railway course with a passing freight train](docs/media/railway.jpg) |
+| ![The river course with directional water](docs/media/river.png) | ![The railway course with a passing freight train](docs/media/railway.png) |
 
 ## Engineering highlights
 
@@ -54,7 +48,7 @@ packages/simulation/ Rapier physics, chain assembly and hazard rules
 packages/config/     Shared parameters and seeded world descriptors
 packages/protocol/   Wire contracts, validation and compact snapshots
 assets/              The 17 game-ready GLBs required by source and tests
-docs/                Case study, architecture, setup and gameplay media
+docs/                Architecture, setup and gameplay media
 ```
 
 Start with [the authoritative session](apps/server/src/authoritative-session.ts), [physics simulation](packages/simulation/src/simulation.ts), [world generator](packages/config/src/generated-world.ts), or [character view](apps/game/src/character-view.ts).
@@ -94,14 +88,6 @@ npm run build
 **Development complete; public multiplayer release pending final hosting and device validation.**
 
 This is a source-visible portfolio snapshot, not an announced public game launch. Automated checks and local gameplay do not establish public hosting capacity, real four-person reliability or long-session device acceptance. No production demo is advertised here. Audio and rescue quick-time events are not implemented.
-
-## Development story
-
-The central challenge was making a physical relationship between players survive contact, latency, disconnection and an expanding world. The [development case study](docs/DEVELOPMENT.md) explains the decisions, tradeoffs and remaining limits, including the use of Codex and AI-assisted development.
-
-## Author
-
-Created by [Mahir](https://github.com/mahir08fr). Project development and custom Blender asset work used AI assistance; see the case study and [asset provenance](docs/ASSETS.md). Third-party libraries and the Pixelify Sans font are credited separately.
 
 ## Rights
 
