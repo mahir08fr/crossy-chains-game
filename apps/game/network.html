@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crossy Chains · Transport test</title>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">CROSSY CHAINS / M4 TASKS 1–3</p>
+      <h1>Two-client transport test</h1>
+      <p>Create a room in one browser, then join its ID in another. Sample inputs test receipt and synchronization; this page has no game simulation.</p>
+      <p>Server: <code id="endpoint"></code> · <a href="/">Local chain playground</a> · <a href="/multiplayer.html">Synchronized movement</a></p>
+      <section aria-label="Room connection">
+        <button id="create" type="button">Create test room</button>
+        <label>Room ID <input id="room-id" maxlength="64" autocomplete="off" spellcheck="false" /></label>
+        <button id="join" type="button">Join room</button>
+        <button id="rejoin" type="button" disabled>Rejoin previous session</button>
+        <button id="leave" type="button" disabled>Leave room</button>
+      </section>
+      <p id="status" role="status">Disconnected</p>
+      <section aria-label="Transport messages">
+        <button id="probe" type="button" disabled>Send ping</button>
+        <button id="sample" type="button" disabled>Send sample input</button>
+        <p id="result" role="status">Connect to send a message.</p>
+      </section>
+      <h2>Server-owned receipt state</h2>
+      <pre id="state" aria-label="Synchronized room state">No room state.</pre>
+      <p class="note">Slots are assigned by the server. Samples alternate X = +1 / −1; this page renders no characters. Each click sends neutral then axes; the server expires idle input. Use the synchronized movement page for continuous WASD control. Leave releases the slot; temporary drops reserve it for 30 seconds. Reload, then rejoin your previous session within that grace.</p>
+    </main>
+    <script type="module" src="/src/network-main.ts"></script>
+  </body>
+</html>

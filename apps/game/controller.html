@@ -1,0 +1,12 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f1e8"><title>Crossy Chains · Controller</title></head><body class="controller-page">
+<main class="controller-shell"><header><a href="/display.html">CROSSY CHAINS</a><span id="ping">Ping —</span></header>
+<h1 id="identity">Your phone. Your player.</h1><p id="status" role="status">Enter the room code on the shared display.</p>
+<section class="join-controls"><label>Room code <input id="room-id" maxlength="8" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ABCDEFGH"></label><button id="join">Join game</button><button id="rejoin">Rejoin my player</button><button id="leave" disabled>Leave</button></section>
+<section id="controller-name" aria-label="Your player name"></section>
+<p id="result" role="status">Watch the shared screen. Drag the circle to move.</p>
+<section class="touch-controls"><div id="joystick" role="group" aria-label="Movement joystick: drag up to move forward" aria-disabled="true"><span class="joystick-up">FORWARD ↑</span><span class="joystick-cross">+</span><div id="joystick-knob"></div></div></section>
+<div class="session-actions"><button id="ready">Ready</button><button id="start">Start team</button><button id="restart">Vote to restart</button><button id="cancel-restart">Cancel vote</button></div>
+<details><summary>Room <span id="room-code">—</span> · teammates</summary><ul id="seats" class="seats"></ul></details>
+<p class="hint">Release to stop. After locking, switching apps or reconnecting, touch again to move.</p></main>
+<dialog id="controller-leave-dialog" aria-labelledby="controller-leave-title"><h2 id="controller-leave-title">LEAVE GAME?</h2><p>Are you sure you want to leave?</p><p>You leave your player slot. The team returns to the lobby; a departing host transfers ownership.</p><p id="controller-leave-feedback" role="status"></p><div class="confirmation-actions"><button id="controller-leave-cancel" autofocus>Cancel</button><button id="controller-leave-confirm">Leave Game</button></div></dialog>
+<script type="module" src="/src/controller-main.ts"></script></body></html>

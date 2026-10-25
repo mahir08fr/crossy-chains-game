@@ -1,0 +1,9 @@
+@import './network.css';
+main { max-width: 1200px; padding-top: 24px; }
+h1 { font-size: 30px; margin-bottom: 12px; }
+#viewport { height: min(60vh, 640px); min-height: 300px; border: 1px solid #72948e; border-radius: 12px; overflow: hidden; }
+#viewport canvas { display: block; width: 100%; height: 100%; }
+#viewport:focus { outline: 2px solid #e5ad6c; outline-offset: 3px; }
+#metrics { font-size: 13px; margin: 12px 0; }
+
+#viewport { position: relative; }

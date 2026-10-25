@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crossy Chains · Synchronized movement</title>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">CROSSY CHAINS / LOCAL MULTIPLAYER TEST</p>
+      <h1>Synchronized movement</h1>
+      <p><a href="/play.html">Play with a friend · private lobby</a></p>
+      <p>Join the same room in two visible browser windows. Each window uses WASD for its assigned player. P1 is the goose; P2 is blue.</p>
+      <section aria-label="Room connection">
+        <button id="create" type="button">Create room</button>
+        <label>Room ID <input id="room-id" maxlength="64" autocomplete="off" spellcheck="false" /></label>
+        <button id="join" type="button">Join room</button>
+        <button id="rejoin" type="button" disabled>Rejoin previous session</button>
+        <button id="leave" type="button" disabled>Leave room</button>
+        <button id="reset" type="button" disabled>Restart team (R)</button>
+      </section>
+      <p id="status" role="status">Disconnected</p>
+      <p id="result" role="status">Connect to begin.</p>
+      <div id="viewport" tabindex="0" aria-label="Multiplayer movement viewport"></div>
+      <pre id="metrics" aria-label="Authoritative movement diagnostics">Awaiting server snapshots.</pre>
+      <p class="note">Click the viewport before moving. Releasing keys or losing focus clears input. A stale connection pauses both players. If your own input expired, release and press movement keys again; a healthy held key survives a pause caused by the other player. Both players and any chain use server motion and a short rendering delay. Temporary drops reconnect for up to 30 seconds; reload uses Rejoin previous session.</p>
+      <p><a href="?chain=road">First playable road</a> · Choose a course before creating a room: <a href="/multiplayer.html">Foundation unchained</a> · <a href="?chain=slack">Slack / pulling</a> · <a href="?chain=taut">Full length</a> · <a href="?chain=post">Round post</a> · <a href="?chain=barrier">Rounded barrier</a> · <a href="?chain=two-posts">Two posts</a>. Joining or rejoining uses the room’s course. Restart resets the entire assembly.</p>
+      <p>Server: <code id="endpoint"></code> · <a href="/">Local chain playground</a> · <a href="/network.html">Transport diagnostics</a></p>
+    </main>
+    <script type="module" src="/src/multiplayer-main.ts"></script>
+  </body>
+</html>

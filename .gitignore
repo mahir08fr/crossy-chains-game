@@ -1,0 +1,14 @@
+node_modules/
+dist/
+**/dist/
+.npm-cache/
+.local-tools/
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+.DS_Store
+*.log
+diagnostics/

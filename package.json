@@ -1,0 +1,33 @@
+{
+  "name": "crossy-chains",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=24.0.0 <25"
+  },
+  "scripts": {
+    "dev": "vite --config vite.config.ts",
+    "build": "npm run typecheck && vite build --config vite.config.ts && npm run build:server",
+    "typecheck": "npm run build:shared && tsc --noEmit && tsc -p apps/server/tsconfig.test.json",
+    "test": "npm run build:shared && vitest run",
+    "check": "npm run typecheck && npm test && npm run build",
+    "preview": "vite preview --config vite.config.ts",
+    "build:protocol": "tsc -p packages/protocol/tsconfig.json",
+    "build:server": "npm run build:shared && tsc -p apps/server/tsconfig.json",
+    "dev:server": "npm run build:server && node apps/server/dist/main.js",
+    "start:server": "node apps/server/dist/main.js",
+    "build:shared": "tsc -p packages/config/tsconfig.json && tsc -p packages/simulation/tsconfig.json && npm run build:protocol"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "@types/three": "0.186.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.4",
+    "vitest": "5.0.4"
+  }
+}
