@@ -1,0 +1,32 @@
+:root { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #f4f4e9; background: #122d35; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; overflow: hidden; }
+#app, #viewport { width: 100%; height: 100dvh; }
+canvas { display: block; width: 100%; height: 100%; }
+.topbar { position: absolute; inset: 24px 28px auto; display: flex; align-items: center; justify-content: space-between; gap: 18px; pointer-events: none; }
+.identity, .toolbar { display: flex; align-items: center; gap: 14px; }
+.mark { display: grid; place-items: center; width: 44px; height: 44px; color: #142c32; background: #f4bd62; border-radius: 13px; font-size: 15px; font-weight: 900; letter-spacing: -1px; transform: rotate(-5deg); box-shadow: 0 4px 15px #071b2630; }
+h1 { margin: 0; font-size: 20px; letter-spacing: -.6px; }
+.identity p { margin: 4px 0 0; font-size: 12px; color: #c8dcd5; }
+.stage { font-size: 10px; letter-spacing: 2px; color: #bbd4ce; }
+button { pointer-events: auto; border: 1px solid #ffffff26; border-radius: 10px; background: #122d35dc; color: #f4f4e9; padding: 11px 14px; font: inherit; font-size: 12px; cursor: pointer; }
+button:hover { background: #23454d; border-color: #f4bd62; }
+button:focus-visible { outline: 3px solid #f4bd62; outline-offset: 4px; }
+kbd { display: inline-block; font-family: inherit; font-size: 11px; line-height: 23px; text-align: center; min-width: 24px; margin-left: 4px; border: 1px solid #ffffff29; border-bottom-width: 2px; border-radius: 5px; background: #ffffff08; }
+.status { position: absolute; left: 50%; top: 105px; transform: translateX(-50%); padding: 10px 16px; background: #122d35ed; border: 1px solid #ffffff24; border-radius: 20px; font-size: 12px; text-align: center; max-width: calc(100% - 40px); }
+.bottom-bar { position: absolute; inset: auto 28px 24px; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.controls { padding: 12px 16px; display: flex; flex-direction: column; gap: 5px; background: #122d35e8; border: 1px solid #ffffff20; border-radius: 12px; }
+.control-label { font-size: 9px; letter-spacing: 2px; color: #bad4c8; }
+.or { margin-left: 12px; color: #bdd4cb; font-size: 11px; }
+.hint { font-size: 12px; color: #e6eedd; padding: 8px 12px; background: #122d3580; border-radius: 8px; }
+#diagnostics { position: absolute; left: 28px; top: 105px; margin: 0; background: #10252cef; border: 1px solid #ffffff20; border-radius: 10px; padding: 14px; color: #d0eed8; font: 11px/1.65 ui-monospace, monospace; pointer-events: none; }
+[hidden] { display: none !important; }
+@media (max-width: 700px) { .topbar { inset: 16px 16px auto; } .bottom-bar { inset: auto 16px 16px; gap: 10px; } .stage, .hint { display: none; } h1 { font-size: 17px; } .mark { width: 36px; height: 36px; } #diagnostics { left: 16px; top: 150px; } }
+
+select { pointer-events: auto; max-width: 240px; border: 1px solid #ffffff26; border-radius: 8px; background: #122d35; color: #f4f4e9; padding: 10px; font: inherit; font-size: 12px; }
+@media (max-width: 700px) { .toolbar { flex-wrap: wrap; justify-content: flex-end; gap: 8px; } select { max-width: 180px; } }
+
+#soak-report { position: absolute; right: 28px; top: 105px; background: #10252cef; border: 1px solid #ffffff20; border-radius: 10px; padding: 14px; color: #d0eed8; font: 11px/1.65 ui-monospace, monospace; pointer-events: none; }
+@media (max-width: 1000px) { .bottom-bar { flex-wrap: wrap; justify-content: flex-end; } .controls { margin-right: auto; } #soak-report { top: 135px; right: 16px; font-size: 10px; } }
+
+#viewport { position: relative; }

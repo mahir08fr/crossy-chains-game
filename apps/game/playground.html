@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#122d35" />
+    <meta name="description" content="Crossy Chains foundation: a local movement and collision playground." />
+    <title>Crossy Chains · Local chain prototype</title>
+  </head>
+  <body>
+    <main id="app">
+      <div id="viewport" aria-label="3D movement playground"></div>
+      <header class="topbar">
+        <div class="identity"><span class="mark" aria-hidden="true">CC</span><div><h1>Crossy Chains</h1><p>Local chain prototype · <a href="/play.html" style="color: #f4bd62">Play online with a friend</a></p></div></div>
+        <div class="toolbar"><select id="scenario" aria-label="Test scenario"></select><span class="stage">LOCAL / 03</span><button id="restart" type="button">Restart <kbd>R</kbd></button></div>
+      </header>
+      <div id="status" class="status" role="status">Loading playground…</div>
+      <footer class="bottom-bar">
+        <div class="controls"><span class="control-label">P1 · GOOSE</span><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span class="or">P2 · AXOLOTL: arrow keys</span></span></div>
+        <p id="asset-status" class="hint" role="status">Loading custom characters…</p>
+        <button id="browser-soak" type="button" hidden>Run 5 min browser soak</button><button id="inject-fault" type="button" hidden>Test physics fault</button><button id="debug-toggle" type="button" hidden aria-pressed="false">Physics view <kbd>F2</kbd></button>
+      </footer>
+      <pre id="soak-report" hidden aria-label="Browser soak report"></pre>
+      <pre id="diagnostics" hidden aria-label="Development diagnostics"></pre>
+      <noscript>This playground needs JavaScript enabled.</noscript>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+.play-page { max-width: 1120px; padding: 32px 24px; }
+.play-page h1 { font-size: clamp(32px, 5vw, 52px); margin: 8px 0; }
+.play-page header > p:last-child { color: #b3c9c4; }
+.play-page section { padding: 20px; border: 1px solid #42665f; border-radius: 16px; }
+.play-page [hidden] { display: none !important; }
+.play-page .room-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; }
+.play-page .or { color: #b3c9c4; align-self: center; }
+.play-page label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+.play-page input { max-width: 100%; box-sizing: border-box; }
+.play-page #room-id { width: 180px; text-transform: uppercase; letter-spacing: 0.1em; }
+.play-page #lobby-panel { margin: 18px 0; background: #193d40; }
+.play-page .invite { display: flex; gap: 18px; align-items: end; flex-wrap: wrap; }
+.play-page .invite label { flex: 1; min-width: 230px; }
+.play-page #invite-link { width: 100%; font-size: 13px; }
+.play-page #invite-code { display: block; font-size: 30px; letter-spacing: 0.12em; color: #f4c474; font-weight: 700; }
+.play-page h2 { font-size: 22px; }
+.play-page .team { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.play-page .team p { padding: 16px; background: #254a4d; border-radius: 10px; margin: 0; }
+.play-page .lobby-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.play-page #ready, .play-page #create { background: #f3bd68; color: #183137; }
+.play-page #lobby-feedback { color: #f4c474; min-height: 1.4em; }
+.play-page #result { min-height: 1.5em; }
+.play-page details { margin: 18px 0; color: #b3c9c4; }
+.play-page footer { margin: 24px 0; font-size: 14px; }
+@media (max-width: 600px) { .play-page .team { grid-template-columns: 1fr; } .play-page { padding: 20px 14px; } }
