@@ -1,61 +1,93 @@
 # Crossy Chains
 
-**A physics-driven cooperative crossing game for 2–4 players.**
+**A physics-driven cooperative browser game for 2–4 players.**
 
-![Two characters connected by a physical chain beside moving traffic](docs/media/chained-gameplay.png)
+![Two teammates connected by a physical chain beside moving traffic](docs/media/chained-gameplay.png)
 
-Crossy Chains turns obstacle crossing into a coordination problem: a physical chain connects the team, catches against obstacles, and carries the consequences of each player's movement.
+Crossy Chains connects teammates with a simulated physical chain. Players coordinate their movement to cross traffic, rivers, and railways while the chain transmits forces and catches on obstacles.
 
-**TypeScript · Three.js · Rapier · Colyseus · Vite · Blender**
+**TypeScript · Three.js · Rapier · Colyseus · Vite**
 
-[Architecture](docs/ARCHITECTURE.md) · [Local setup](docs/SETUP.md) · [Assets & attribution](docs/ASSETS.md)
+**Status:** Core gameplay implemented; public hosting and multiplayer device validation remain pending. No hosted demo is currently available.
+
+[Run locally](#run-locally) · [Engineering](#engineering-highlights) · [Screenshots](#gameplay-gallery) · [Architecture](docs/ARCHITECTURE.md) · [Assets & attribution](docs/ASSETS.md)
 
 ## The game
 
-Move freely through an endless world of traffic, flowing rivers and railway crossings. The team shares survival and progress: leaving a teammate behind is not a way to win. Four fixed character slots bring a goose, axolotl, capybara and unicorn into the same physical assembly.
+Move freely through an endless world of traffic, flowing rivers, and railway crossings. The team shares one run: a vehicle impact or failed water crossing ends the attempt, and progress depends on keeping the group together. The four fixed character slots are a goose, an axolotl, a capybara, and a unicorn.
 
-- **2–4 players:** private online rooms, invitations, readiness and controlled session recovery.
-- **Physical cooperation:** connected rigid-body chains transmit forces and collide with posts and river rocks.
-- **Multiple ways to play:** two people sharing a keyboard, separate desktop clients, or phones controlling a shared display.
-- **Seeded endless terrain:** compact crossings, regrouping strips, bounded difficulty and streamed sections.
-- **Shared consequences:** vehicle impacts and failed water crossings end the run; generated multiplayer restarts require the team's agreement.
-- **Custom characters:** separate walking and aquatic clips, movement-driven playback and visual attachments independent of collision bodies.
+- **Physical cooperation:** chain links transmit forces between teammates and collide with posts and river rocks.
+- **Seeded endless terrain:** repeatable worlds from a seed, safe areas to regroup, bounded difficulty, and sections loaded as the team advances.
+- **Private rooms:** invitation links, ready checks, and seat recovery after a disconnect. Restarting an online endless run requires every player's vote.
+- **Animated characters:** separate walking and swimming animations, playback tied to movement, and visual models separated from collision bodies. Runtime artwork was developed with Blender; Blender is not needed to run the game.
 
-## Gameplay gallery
+### Ways to play
 
-| Team setup | Four-player chain |
-| --- | --- |
-| ![Character selection in the actual game menu](docs/media/main-menu.png) | ![Four connected characters in a live local multiplayer room](docs/media/four-player.png) |
-| **River crossing** | **Railway crossing** |
-| ![The river course with directional water](docs/media/river.png) | ![The railway course with a passing freight train](docs/media/railway.png) |
+- **Shared keyboard:** two players on one desktop; no multiplayer backend required.
+- **Online rooms:** two to four desktop clients connected to the authoritative server.
+- **Phone controllers:** two to four phones control players on one shared desktop display.
 
 ## Engineering highlights
 
-| Challenge | Implementation |
-| --- | --- |
-| A chain that changes movement | Dynamic capsule spans and spherical joints share a Rapier world with the players. Bounded drive forces yield to contact and tension. |
-| Synchronizing a connected assembly | The server advances the complete group. Clients interpolate players and chain segments on one snapshot timeline rather than predicting each body independently. |
-| Handling interrupted input | Ownership generations, input sequencing and 250 ms freshness checks reject stale commands. Disconnects pause the connected world; reclaim does not replay held input. |
-| Building an endless course | Versioned seeded descriptors define authoritative terrain. Feasibility checks and streaming margins account for the group and chain, not just one character. |
-| Keeping presentation affordable | Shared GLTF templates, character batching, instanced scenery, pooled effects and bounded section disposal reduce repeated work. |
+### Physical chains that change movement
 
-## Source map
+Dynamic capsule spans and spherical joints share a Rapier world with the players. Bounded drive forces yield to contact and tension, so the chain affects movement rather than following it as a visual effect. See the [chain assembly](packages/simulation/src/chain.ts) and [physics simulation](packages/simulation/src/simulation.ts).
 
-```text
-apps/game/           Browser interface, input, Three.js rendering and animation
-apps/server/         Colyseus runtime, room lifecycle and authoritative sessions
-packages/simulation/ Rapier physics, chain assembly and hazard rules
-packages/config/     Shared parameters and seeded world descriptors
-packages/protocol/   Wire contracts, validation and compact snapshots
-assets/              The 17 game-ready GLBs required by source and tests
-docs/                Architecture, setup and gameplay media
-```
+### One authoritative connected assembly
 
-Start with [the authoritative session](apps/server/src/authoritative-session.ts), [physics simulation](packages/simulation/src/simulation.ts), [world generator](packages/config/src/generated-world.ts), or [character view](apps/game/src/character-view.ts).
+The server simulates the entire connected group. Clients interpolate players and chain segments on one snapshot timeline rather than predicting each body independently. See the [authoritative session](apps/server/src/authoritative-session.ts) and [snapshot buffer](apps/game/src/snapshot-buffer.ts).
+
+### Input safety and session recovery
+
+Ownership generations, input sequencing, and 250 ms freshness checks reject stale commands. Disconnects pause the shared simulation; reconnecting does not replay previously held input. See the [input scheduler](apps/server/src/input-scheduler.ts) and [room lifecycle](apps/server/src/transport-room.ts).
+
+### Seeded world generation and streaming
+
+The server generates terrain from versioned, seeded world descriptors. Feasibility checks and streaming margins account for the group and chain, not just one character. See the [world generator](packages/config/src/generated-world.ts) and [simulation-side terrain](packages/simulation/src/generated-world.ts).
+
+### Efficient rendering and resource ownership
+
+Shared glTF templates, character batching, instanced scenery, pooled effects, and bounded section disposal reduce repeated work. See [character batching](apps/game/src/character-batch.ts), [world rendering](apps/game/src/generated-world-view.ts), and [visual effects](apps/game/src/visual-effects.ts).
+
+[Architecture and tradeoffs](docs/ARCHITECTURE.md) explains the physics, protocol, room lifecycle, and rendering boundaries in more detail.
+
+## Verification
+
+The automated suite covers physics and hazards, seeded generation, protocol validation, snapshot interpolation, and multiplayer room lifecycle, including real local socket fixtures. Representative tests include [chain behavior](packages/simulation/src/chain.test.ts), [full-assembly interpolation](apps/game/src/group-timeline.test.ts), and [two-client transport](apps/server/src/transport.test.ts).
+
+Type checking and the production build passed in the documented local review. Two network cases failed during the full test run and passed when rerun individually; the suite is not documented as fully passing. See the [verification record](docs/VERIFICATION.md) for the environment, exact outcomes, and limits of those checks.
+
+## Gameplay gallery
+
+### Four-player chain
+
+![Four fixed characters connected by three physical chains in a local four-seat room](docs/media/four-player.png)
+
+All four character slots in one authoritative room on loopback. Three seats were controlled by local SDK clients; this capture does not establish four-person play across devices.
+
+### River crossing
+
+![A swimming goose with a water-exposure ring, connected by a chain to an axolotl on the riverbank](docs/media/river.png)
+
+Swimming animation and water-exposure feedback during a chained crossing.
+
+### Railway crossing
+
+![Two chained teammates wait below the railway as a freight train passes between warning lamps](docs/media/railway.png)
+
+The railway course brings train timing and warning lamps into the team's route.
+
+### Team setup
+
+![Four fixed character slots in the online team setup menu](docs/media/main-menu.png)
+
+Online team setup before creating a room. Characters are assigned to fixed seats.
+
+All screenshots are authentic captures of this implementation. [Capture notes](docs/media/README.md) describe their setup and provenance.
 
 ## Run locally
 
-Use **Node.js 24.x** with npm (the checked version is recorded in `.node-version`).
+Use **Node.js 24.x** and its bundled npm, plus a desktop browser supporting WebGL2. The tested Node.js version is recorded in [`.node-version`](.node-version).
 
 ```sh
 git clone https://github.com/mahir08fr/crossy-chains-game.git
@@ -63,32 +95,53 @@ cd crossy-chains-game
 npm ci
 ```
 
-In two terminals:
+### Quick local preview — one terminal
+
+```sh
+npm run dev
+```
+
+Open **http://127.0.0.1:5173/local.html**, choose **Ready** on both cards, then **Start**. Player 1 uses **WASD**; Player 2 uses the **arrow keys**. A solo reviewer can control the two seats in turn to explore the chain behavior. **How to play** explains the hazards; **Advanced** offers focused road, river, and railway courses.
+
+### Desktop multiplayer — two terminals
+
+Run both commands from the repository root.
+
+**Terminal 1 — backend:**
 
 ```sh
 npm run dev:server
 ```
 
-```sh
-VITE_SERVER_URL=http://127.0.0.1:2567 npm run dev -- --port 5173 --strictPort
-```
-
-Open **http://127.0.0.1:5173/local.html** for two-player shared-keyboard play, or **http://127.0.0.1:5173/** for online room setup. Choose Ready on each local card, then Start. P1 uses WASD; P2 uses the arrow keys.
+**Terminal 2 — frontend:**
 
 ```sh
-npm run typecheck
-npm test
-npm run build
+npm run dev
 ```
 
-[Full setup instructions](docs/SETUP.md) cover private rooms, phone controllers, environment variables and production preview.
+Open **http://127.0.0.1:5173/** in two visible browser windows. Configure the team size, create a private room, and share its invitation. Guests choose **Ready**; the host chooses **Start**, which also confirms the host's readiness. Keep both windows visible; backgrounding a participant intentionally triggers safety pauses.
+
+[Full setup instructions](docs/SETUP.md) cover phone controllers, Windows and LAN configuration, development entry points, verification commands, and production preview. Press **Ctrl+C** in each server terminal when finished.
+
+## Source map
+
+- [`apps/game/`](apps/game/) — browser interface, input, Three.js rendering, and animation.
+- [`apps/server/`](apps/server/) — Colyseus runtime, room lifecycle, and authoritative sessions.
+- [`packages/simulation/`](packages/simulation/) — Rapier physics, chain assembly, and hazard rules.
+- [`packages/config/`](packages/config/) — shared parameters and seeded world descriptors.
+- [`packages/protocol/`](packages/protocol/) — wire contracts, validation, and compact snapshots.
+- [`assets/`](assets/) — the 17 game-ready GLBs required by source and tests.
+- [`scripts/`](scripts/) — traversal fixtures and a local npm compatibility helper; see the [development guide](docs/SETUP.md#development-workflow).
+- [`docs/`](docs/) — architecture, setup, verification, attribution, and gameplay media.
+
+Start with the [authoritative session](apps/server/src/authoritative-session.ts), [physics simulation](packages/simulation/src/simulation.ts), [world generator](packages/config/src/generated-world.ts), or [character view](apps/game/src/character-view.ts).
 
 ## Status
 
-**Development complete; public multiplayer release pending final hosting and device validation.**
+This repository is a curated source snapshot; its public history begins with the source release. Core gameplay is implemented, while public hosting capacity, four-person play across devices, and long-session reliability remain unverified. No hosted demo is currently available. Audio is not implemented.
 
-This is a source-visible portfolio snapshot, not an announced public game launch. Automated checks and local gameplay do not establish public hosting capacity, real four-person reliability or long-session device acceptance. No production demo is advertised here. Audio and rescue quick-time events are not implemented.
+Local gameplay and automated fixtures provide evidence for the tested paths; they do not establish public multiplayer release readiness. See the [verification record](docs/VERIFICATION.md).
 
 ## Rights
 
-Source code is publicly available for portfolio and educational inspection. No open-source licence is granted for the original project code or artwork. Third-party components remain subject to their own licence terms. Public visibility does not grant permission to reuse, redistribute or commercially exploit the original project code or artwork.
+Original project code and artwork are published for portfolio and educational inspection; no open-source licence is granted. Public visibility does not grant permission to reuse, redistribute, or commercially exploit the original code or artwork. Third-party components retain their own licence terms. See [assets and third-party notices](docs/ASSETS.md).

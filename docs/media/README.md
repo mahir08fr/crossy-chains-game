@@ -12,4 +12,4 @@ Captured from the running public source copy in Safari on October 25, 2026. All 
 | `river.png` | Original river course with a swimming goose, water-exposure indicator and physical chain |
 | `railway.png` | Original railway course during a passing freight train |
 
-Each screenshot was individually inspected for cursor visibility, loading failures, debug panels, popups and sensitive room information. These captures show implemented gameplay and presentation; they do not establish real four-person coordination, device compatibility, public-hosting capacity or endurance acceptance.
+The images were checked for visible cursors, loading failures, debug overlays, popups, and room information. They document these local captures, not public-hosting or multi-device acceptance.

@@ -4,20 +4,20 @@
 
 ## Project-created runtime artwork
 
-The public snapshot includes only the 17 GLBs directly imported by the game. Available project Blender generators and animation/validation records identify these as project-created procedural geometry and authored clips, developed with AI assistance. No third-party model pack, texture library or downloaded animation was identified in this runtime selection. Each GLB is self-contained, uses material colours and contains no images or external texture references.
+The public snapshot includes the 17 runtime GLBs imported by the game. The artwork was developed with AI assistance using project-created procedural geometry and authored animations. The production records described below are retained outside this public snapshot; the bundled GLBs are the public runtime evidence. Each GLB is self-contained, uses material colours, and contains no images or external texture references.
 
-| Asset family | Included runtime exports | Provenance basis |
+| Asset family | Included runtime exports | Retained production record |
 | --- | --- | --- |
 | Goose | `goose_animated/canada_goose_animated.glb`, `goose_006/goose_swimming.glb` | Project goose generator, walk rig and separate aquatic animation workflow |
 | Axolotl | `axolotl_animated/axolotl_animated.glb`, `axolotl_004/axolotl_swimming.glb` | Self-contained project generator and walk/aquatic scripts |
 | Capybara | `capybara_003/capybara_animated.glb`, `capybara_006/capybara_swimming.glb` | Project generator/refinement and animation workflow |
 | Unicorn | `unicorn_006/unicorn_animated.glb`, `unicorn_009/unicorn_swimming.glb` | Original procedural geometry and separate walk/aquatic rigs |
 | Car | `car_001/car.glb` | Project procedural car generator |
-| Freight train | `train_004/locomotive.glb`, `boxcar.glb`, `open_wagon.glb` | Project procedural train generator |
-| Trees | `trees_005/tree_small.glb`, `tree_medium.glb`, `tree_tall.glb` | Project seeded tree generator |
-| River rocks | `rocks_001/rock_small.glb`, `rock_medium.glb` | Original deterministic project geometry; visual reference informed broad shape |
+| Freight train | `train_004/locomotive.glb`, `train_004/boxcar.glb`, `train_004/open_wagon.glb` | Project procedural train generator |
+| Trees | `trees_005/tree_small.glb`, `trees_005/tree_medium.glb`, `trees_005/tree_tall.glb` | Project seeded tree generator |
+| River rocks | `rocks_001/rock_small.glb`, `rocks_001/rock_medium.glb` | Original deterministic project geometry; visual reference informed broad shape |
 
-Paths above are relative to `assets/<family>/output/`. Editable Blender scenes, reference images, art drafts, scripts with workstation paths and internal validation records are not part of this curated game-source snapshot. Blender is not needed to build or run it. No original-artwork reuse licence is granted by publication.
+Paths above are relative to `assets/<family>/output/`. Numbered folders are retained export identifiers used by runtime imports, not alternate selectable assets. Editable Blender scenes, reference images, art drafts, scripts with workstation paths and internal validation records are not part of this curated game-source snapshot. Blender is not needed to build or run it. No original-artwork reuse licence is granted by publication.
 
 ## Font
 
@@ -42,4 +42,4 @@ These dependency licences apply to those components, not to the original game co
 
 ## Gameplay media
 
-The screenshots in `docs/media/` are captures of this running implementation, not stock art, generated concept images or another game's screenshots. They show project runtime artwork and the credited font. See [capture notes](media/README.md).
+The screenshots in `docs/media/` are authentic captures of this running implementation. They show project runtime artwork and the credited font. See [capture notes](media/README.md).
