@@ -42,4 +42,4 @@ These dependency licences apply to those components, not to the original game co
 
 ## Gameplay media
 
-The images and GIF in `docs/media/` are captures of this running implementation, not stock art, generated concept images or another game's screenshots. They show project runtime artwork and the credited font. See [capture notes](media/README.md).
+The screenshots in `docs/media/` are captures of this running implementation, not stock art, generated concept images or another game's screenshots. They show project runtime artwork and the credited font. See [capture notes](media/README.md).
